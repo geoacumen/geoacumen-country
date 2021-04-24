@@ -1,8 +1,6 @@
 name: Build database
 
 on:
-  push:
-  pull_request:
   schedule:
     - cron: '0 0 * * 0'  # weekly (At 00:00 on Sunday.)
 
