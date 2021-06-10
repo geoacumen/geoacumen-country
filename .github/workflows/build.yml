@@ -52,4 +52,4 @@ jobs:
           # - user_info -> Your Display Name <your-actual@email.com>
           # - github_actions -> github-actions <email associated with the github logo>
           # Default:
-          default_author: github_actor
+          default_author: github_actions
