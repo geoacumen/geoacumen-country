@@ -23,14 +23,22 @@ enc = mmdbencoder.Encoder(
 )
 
 print("Building data")
+iso_codes = {}
 with open("ip2asn-combined.tsv", newline="") as csvfile:
     csv_reader = csv.reader(csvfile, delimiter="\t")
     for row in csv_reader:
         row = Row(*row)
+
+        # Insert country data only once
+        if row.iso_code in iso_codes:
+            data_offset = iso_codes[row.iso_code]
+        else:
+            data_offset = enc.insert_data({"country": {"iso_code": row.iso_code}})
+            iso_codes[row.iso_code] = data_offset
+
         cidrs = netaddr.iprange_to_cidrs(row.start, row.end)
         for cidr in cidrs:
-            data = enc.insert_data({"country": {"iso_code": row.iso_code}})
-            enc.insert_network(cidr, data, strict=False)
+            enc.insert_network(cidr, data_offset, strict=False)
 
 
 print("Writing database")
