@@ -2,6 +2,7 @@ import netaddr
 import mmdbencoder
 import csv
 from collections import namedtuple
+import os
 import subprocess
 
 
@@ -44,3 +45,4 @@ with open("ip2asn-combined.tsv", newline="") as csvfile:
 print("Writing database")
 with open("Geoacumen-Country.mmdb", "wb") as f:
     enc.write(f)
+os.remove("ip2asn-combined.tsv")
