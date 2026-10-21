@@ -30,6 +30,11 @@ with open("ip2asn-combined.tsv", newline="") as csvfile:
     for row in csv_reader:
         row = Row(*row)
 
+        # iptoasn uses placeholders such as "None" and "Unknown"; skip them
+        # so those ranges have no record, as in other MaxMind-format databases.
+        if len(row.iso_code) != 2:
+            continue
+
         # Insert country data only once
         if row.iso_code in iso_codes:
             data_offset = iso_codes[row.iso_code]
