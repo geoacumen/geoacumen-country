@@ -8,8 +8,8 @@ import subprocess
 
 Row = namedtuple("Row", ["start", "end", "as_num", "iso_code", "as_description"])
 
-subprocess.call(["curl", "-O", "https://iptoasn.com/data/ip2asn-combined.tsv.gz"])
-subprocess.call(["gunzip", "-f", "ip2asn-combined.tsv.gz"])
+subprocess.run(["curl", "--fail", "-O", "https://iptoasn.com/data/ip2asn-combined.tsv.gz"], check=True)
+subprocess.run(["gunzip", "-f", "ip2asn-combined.tsv.gz"], check=True)
 
 
 enc = mmdbencoder.Encoder(
